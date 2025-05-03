@@ -32,12 +32,10 @@ class Day(Base):
     itinerary = relationship("Itinerary", back_populates="days")
 
 
-Base.metadata.drop_all(bind=engine)  # 👈 This line drops all tables
+Base.metadata.drop_all(bind=engine)  
 Base.metadata.create_all(bind=engine)
 
-# ----------------------------#
 # Pydantic Schemas
-# ----------------------------
 
 class DayCreate(BaseModel):
     day_number: int
@@ -68,9 +66,7 @@ class ItineraryResponse(BaseModel):
     class Config:
         from_attributes = True
 
-# ----------------------------#
 # Database Session Dependency
-# ----------------------------#
 
 def get_db():
     db = SessionLocal()
@@ -79,9 +75,7 @@ def get_db():
     finally:
         db.close()
 
-# ----------------------------#
 # API Endpoints
-# ----------------------------#
 
 @app.get("/")
 def root():
